@@ -9,5 +9,4 @@ public class TaskmanagerappApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TaskmanagerappApplication.class, args);
 	}
-
 }
