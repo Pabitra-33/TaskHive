@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>USER Registration</title>
+	<!--Bootstrap cdn link-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+	<style>
+		body {
+			background: linear-gradient(135deg, #667eea, #764ba2);
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+		}
+
+		.card {
+			width: 450px;
+			border-radius: 20px;
+			box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+			padding: 30px;
+			background: #fff;
+		}
+
+		.card h2 {
+			text-align: center;
+			margin-bottom: 20px;
+			color: #333;
+		}
+
+		.form-label {
+			font-weight: 600;
+		}
+
+		input,
+		select {
+			border-radius: 10px;
+			padding: 10px;
+		}
+
+		.btn-custom {
+			background: #667eea;
+			border: none;
+			border-radius: 10px;
+			color: #fff;
+			font-weight: bold;
+			transition: 0.3s;
+		}
+
+		.btn-custom:hover {
+			background: #5a67d8;
+			transform: scale(1.05);
+		}
+
+		.error {
+			font-size: 0.9em;
+			color: red;
+			margin-top: 4px;
+		}
+
+		.msg {
+			text-align: center;
+			font-weight: bold;
+			margin-bottom: 10px;
+			color: green;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="card">
+		<h2>User Registration Form</h2>
+
+		<!--Display success or error message -->
+		<p class="msg" th:text="${msg}"></p>
+
+		<form th:action="@{/saveuser}" th:object="${user}" method="post">
+
+			<div class="mb-3">
+				<label for="name" class="form-label">User Name:</label>
+				<input type="text" id="name" class="form-control" th:field="*{name}"
+					placeholder="Enter your full name" />
+				<!-- Display error message for name -->
+				<div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="email" class="form-label">User Email:</label>
+				<input type="email" id="email" class="form-control" th:field="*{email}"
+					placeholder="Enter your email" />
+				<!-- Display error message for email -->
+				<div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="pswd" class="form-label">User Password:</label>
+				<input type="password" id="pswd" class="form-control" th:field="*{pswd}"
+					placeholder="Enter your password" />
+				<!-- Display error message for password -->
+				<div class="error" th:if="${#fields.hasErrors('pswd')}" th:errors="*{pswd}"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="gender" class="form-label">User Gender:</label>
+				<select id="gender" class="form-control" th:field="*{gender}">
+					<option value="">Select Gender</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+					<option value="Other">Other</option>
+				</select>
+				<!-- Display error message for gender -->
+				<div class="error" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+			</div>
+
+			<div class="mb-3">
+				<label for="phno" class="form-label">User Phone No:</label>
+				<input type="tel" id="phno" class="form-control" th:field="*{phno}"
+					placeholder="Enter your phone number" />
+				<!-- Display error message for phone number -->
+				<div class="error" th:if="${#fields.hasErrors('phno')}" th:errors="*{phno}"></div>
+			</div>
+
+			<div class="d-grid">
+				<button type="submit" class="btn btn-custom">Register User</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>
