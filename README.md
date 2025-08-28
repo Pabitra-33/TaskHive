@@ -4,7 +4,7 @@
 - It is a smart, lightweight, and efficient **task management system** designed to keep your work organized and boost productivity. It allows you to create, update, track, and complete tasks seamlessly. Whether you’re a student managing assignments, a professional tracking deadlines, or a team collaborating on projects, TaskHive provides a structured platform to improve productivity and focus.
 <br>
 
-# 🎯 Features:
+# 🎯 Features
 
 - 🔐 Registration/Login – Provided registration and login page for each user to register and login to application and perform their operation.
 
@@ -25,7 +25,7 @@
 -  🔓 Logout - Provided a clean logout button for user to logut.
 <br>
 
-# 🛠️ Tech Stack:
+# 🛠️ Tech Stacks
 
 - Backend: Java, Spring Boot, Spring MVC
 
@@ -67,3 +67,74 @@ TaskHive/
 - Install PostgreSQL
 
 
+
+# ⚙️ Setup
+
+
+## 1. Clone the repository:
+
+git clone https://github.com/your-username/TaskHive.git
+cd TaskHive
+
+
+## 2. Configure PostgreSQL Database in application.properties:
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/taskdb
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+
+
+## 3. Build and run the project:
+
+mvn spring-boot:run
+
+
+## 4. Access the app at:
+👉 http://localhost:8080/
+
+
+
+
+# 📱 Screens (Sample UI Flow)
+
+- 🏠 Home Page – Task overview.
+
+- ➕ Add Task Form – Create a new task.
+
+- 📝 Edit Task Form – Update existing tasks.
+
+- ✅ Task List – View all tasks in a structured table.
+
+
+
+# 💡 Use Cases
+
+- Personal to-do list management
+
+- Team-based task tracking (extendable with user roles)
+
+- Mini-project for Spring Boot + Thymeleaf learning
+
+Hands-on practice with CRUD operations in PostgreSQL
+
+
+
+# 🤝 Contribution
+
+Contributions are welcome! 🎉 You can help by:
+
+Adding user authentication (Spring Security)
+
+Enhancing UI/UX with advanced Bootstrap
+
+Integrating REST APIs for external usage
+
+Adding notifications/reminders for tasks
+
+
+
+
+# 🙌 Acknowledgments
+
+Thanks to the Spring Boot & PostgreSQL community for their amazing tools that make building full-stack apps enjoyable!.
