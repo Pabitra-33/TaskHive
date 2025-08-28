@@ -12,20 +12,21 @@ import jakarta.servlet.http.HttpSession;
 import taskmangerapplication.binding.LoginUser;
 import taskmangerapplication.binding.Task;
 import taskmangerapplication.binding.User;
+import taskmangerapplication.dao.TaskDao;
+import taskmangerapplication.dao.UserDao;
 import taskmangerapplication.entity.TaskEntity;
 import taskmangerapplication.entity.UserEntity;
-import taskmangerapplication.repository.TaskDao;
-import taskmangerapplication.repository.UserDao;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	private UserDao userDao;
+	private UserDao userDao;//to perform user entity related operations.
 
 	@Autowired
-	private TaskDao taskDao;
+	private TaskDao taskDao;//to perform task entity related operations.
 
+	
 	@GetMapping("/showform")
 	public String showregisterForm(Model model) {
 		model.addAttribute("user", new User());
@@ -57,7 +58,7 @@ public class UserController {
 		UserEntity found = userDao.findByName(username);
 
 		if (found != null && pswd.equals(found.getPswd())) {
-			session.setAttribute("user", username);
+			session.setAttribute("user", username);//adding the user in the session for further operation
 			session.setAttribute("pswd", pswd);
 			return "home";
 		} else {
@@ -109,6 +110,7 @@ public class UserController {
 	
 	@GetMapping("/signout")
 	public String logout(HttpSession session, Model model) {
+		
 		session.invalidate();
 		model.addAttribute("msg", "Logout successfull!!!");
 		model.addAttribute("user", new LoginUser());
