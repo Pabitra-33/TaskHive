@@ -1,4 +1,4 @@
-package taskmangerapplication.repository;
+package taskmangerapplication.dao;
 
 import java.util.List;
 
