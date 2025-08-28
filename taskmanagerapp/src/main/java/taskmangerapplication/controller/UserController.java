@@ -53,7 +53,7 @@ public class UserController {
 		String username = user.getUsername();
 		String pswd = user.getPassword();
 
-		// lookup user from DB using your existing custom method
+		// lookup user from DB using our existing custom method
 		UserEntity found = userDao.findByName(username);
 
 		if (found != null && pswd.equals(found.getPswd())) {
@@ -96,7 +96,7 @@ public class UserController {
 	}
 
 	
-	@GetMapping("/tasks")
+	@GetMapping("/viewtasks")
 	public String viewtasks(HttpSession session, Model model) {
 
 		String username = (String) session.getAttribute("user");
