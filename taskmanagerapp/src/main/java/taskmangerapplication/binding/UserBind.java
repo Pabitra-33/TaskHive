@@ -1,6 +1,6 @@
 package taskmangerapplication.binding;
 
-public class User {
+public class UserBind {
 
 	private String email;
 	private String name;

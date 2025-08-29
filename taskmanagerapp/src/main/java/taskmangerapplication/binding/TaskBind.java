@@ -1,6 +1,6 @@
 package taskmangerapplication.binding;
 
-public class Task {
+public class TaskBind {
 
 	private String taskname;
 	private String timetocompletetask;
