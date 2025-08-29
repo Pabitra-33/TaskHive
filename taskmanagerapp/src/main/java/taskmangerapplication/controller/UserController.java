@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpSession;
 import taskmangerapplication.binding.LoginUser;
-import taskmangerapplication.binding.Task;
-import taskmangerapplication.binding.User;
+import taskmangerapplication.binding.TaskBind;
+import taskmangerapplication.binding.UserBind;
 import taskmangerapplication.dao.TaskDao;
 import taskmangerapplication.dao.UserDao;
-import taskmangerapplication.entity.TaskEntity;
-import taskmangerapplication.entity.UserEntity;
+import taskmangerapplication.model.TaskEntity;
+import taskmangerapplication.model.UserEntity;
 
 @Controller
 public class UserController {
@@ -29,12 +29,12 @@ public class UserController {
 	
 	@GetMapping("/showform")
 	public String showregisterForm(Model model) {
-		model.addAttribute("user", new User());
+		model.addAttribute("user", new UserBind());
 		return "register";
 	}
 
 	@PostMapping("/saveuser")
-	public String registerUser(User user, Model model) {
+	public String registerUser(UserBind user, Model model) {
 
 		UserEntity entity = new UserEntity();
 		BeanUtils.copyProperties(user, entity);
@@ -72,13 +72,13 @@ public class UserController {
 	@GetMapping("/tasks/new")
 	public String showt(Model model) {
 		System.out.println("New task added");
-		model.addAttribute("task", new Task());
+		model.addAttribute("task", new TaskBind());
 		return "task";
 	}
 	
 
 	@PostMapping("/tasks")
-	public String savetask(Model model, Task task, HttpSession session) {
+	public String savetask(Model model, TaskBind task, HttpSession session) {
 		
 		System.out.println("Hey there");
 		String username = (String) session.getAttribute("user");
