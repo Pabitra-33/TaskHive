@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import taskmangerapplication.entity.TaskEntity;
-import taskmangerapplication.entity.UserEntity;
+import taskmangerapplication.model.TaskEntity;
+import taskmangerapplication.model.UserEntity;
 
 @Repository
 public interface TaskDao extends JpaRepository<TaskEntity, String>{
