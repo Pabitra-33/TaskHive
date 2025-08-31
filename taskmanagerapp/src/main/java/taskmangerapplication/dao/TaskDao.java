@@ -9,7 +9,7 @@ import taskmangerapplication.model.TaskEntity;
 import taskmangerapplication.model.UserEntity;
 
 @Repository
-public interface TaskDao extends JpaRepository<TaskEntity, String>{
+public interface TaskDao extends JpaRepository<TaskEntity, Integer>{
 
 	//custom method to return list of tasks for the user.
 	List<TaskEntity> findByUserEntity(UserEntity userEntity);
