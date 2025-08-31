@@ -1,7 +1,5 @@
 package taskmangerapplication.controller;
 
-import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpSession;
 import taskmangerapplication.binding.LoginUser;
-import taskmangerapplication.binding.TaskBind;
 import taskmangerapplication.binding.UserBind;
-import taskmangerapplication.dao.TaskDao;
 import taskmangerapplication.dao.UserDao;
-import taskmangerapplication.model.TaskEntity;
 import taskmangerapplication.model.UserEntity;
 
 @Controller
@@ -22,9 +17,6 @@ public class UserController {
 
 	@Autowired
 	private UserDao userDao;//to perform user entity related operations.
-
-	@Autowired
-	private TaskDao taskDao;//to perform task entity related operations.
 
 	
 	@GetMapping("/showform")
@@ -50,7 +42,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public String login(LoginUser user, Model model, HttpSession session) {
+	public String loginUser(LoginUser user, Model model, HttpSession session) {
 		String username = user.getUsername();
 		String pswd = user.getPassword();
 
@@ -68,50 +60,10 @@ public class UserController {
 		}
 	}
 	
-
-	@GetMapping("/tasks/new")
-	public String showt(Model model) {
-		System.out.println("New task added");
-		model.addAttribute("task", new TaskBind());
-		return "task";
-	}
-	
-
-	@PostMapping("/tasks")
-	public String savetask(Model model, TaskBind task, HttpSession session) {
-		
-		System.out.println("Hey there");
-		String username = (String) session.getAttribute("user");
-		System.out.println(username);
-		UserEntity userentity = userDao.findByName(username);
-		TaskEntity entity = new TaskEntity();
-		entity.setUserEntity(userentity);
-		BeanUtils.copyProperties(task, entity);
-		TaskEntity save = taskDao.save(entity);
-		if (save != null) {
-			model.addAttribute("msg", "task saved");
-			return "home";
-		} else {
-			return "task";
-		}
-	}
-
-	
-	@GetMapping("/viewtasks")
-	public String viewtasks(HttpSession session, Model model) {
-
-		String username = (String) session.getAttribute("user");
-		UserEntity entity = userDao.findByName(username);
-		List<TaskEntity> taks = taskDao.findByUserEntity(entity);
-		model.addAttribute("tasks", taks);
-		return "viewtask";
-	}
-
-	
 	@GetMapping("/signout")
 	public String logout(HttpSession session, Model model) {
 		
-		session.invalidate();
+		session.invalidate();//deleting the sesion
 		model.addAttribute("msg", "Logout successfull!!!");
 		model.addAttribute("user", new LoginUser());
 		return "login";
