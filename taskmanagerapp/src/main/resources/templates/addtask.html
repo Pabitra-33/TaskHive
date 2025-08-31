@@ -4,25 +4,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Create Task</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
 	<style>
 		body {
-			background: linear-gradient(135deg, #f7971e, #ffd200);
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 0;
+			padding: 0;
+			height: 100vh;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			height: 100vh;
-			margin: 0;
+			font-family: Arial, sans-serif;
+			background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
 		}
 
 		.card {
 			width: 450px;
-			background: #fff;
+			background: rgba(255, 255, 255, 0.95);
 			padding: 30px;
 			border-radius: 20px;
-			box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+			box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3);
 		}
 
 		.card h1 {
@@ -35,11 +34,24 @@
 
 		.form-label {
 			font-weight: 600;
+			display: block;
+			margin-bottom: 5px;
+			color: #444;
 		}
 
-		input {
+		input,
+		textarea {
+			width: 100%;
 			border-radius: 10px;
 			padding: 10px;
+			border: 1px solid #ccc;
+			margin-bottom: 15px;
+			font-size: 14px;
+		}
+
+		textarea {
+			resize: none;
+			height: 80px;
 		}
 
 		.btn-custom {
@@ -51,6 +63,7 @@
 			padding: 12px;
 			transition: all 0.3s ease-in-out;
 			width: 100%;
+			cursor: pointer;
 		}
 
 		.btn-custom:hover {
@@ -64,10 +77,6 @@
 			margin-bottom: 10px;
 			color: green;
 		}
-
-		.mb-3 {
-			margin-bottom: 20px;
-		}
 	</style>
 </head>
 
@@ -78,21 +87,29 @@
 		<!-- Success or error message -->
 		<p class="msg" th:text="${msg}"></p>
 
-		<form th:action="@{/tasks}" th:object="${task}" method="post">
-			<div class="mb-3">
-				<label for="taskname" class="form-label">Task Name:</label>
-				<input type="text" id="taskname" class="form-control" th:field="*{taskname}" required
-					placeholder="Enter task title" />
+		<form th:action="@{/savetasks}" th:object="${task}" method="post">
+			<div>
+				<label for="taskid" class="form-label">Task Id:</label>
+				<input type="text" id="taskname" th:field="*{id}" required placeholder="Enter task id" />
 			</div>
-
-			<div class="mb-3">
-				<label for="timetocompletetask" class="form-label">Time to Complete (minutes):</label>
-				<input type="number" id="timetocompletetask" class="form-control" th:field="*{timetocompletetask}"
-					min="1" required placeholder="e.g. 30" />
+			<div>
+				<label for="taskname" class="form-label">Task Name:</label>
+				<input type="text" id="taskname" th:field="*{taskname}" required placeholder="Enter task title" />
 			</div>
 
 			<div>
-				<button type="submit" class="btn btn-custom">Create Task</button>
+				<label for="description" class="form-label">Description:</label>
+				<textarea id="description" th:field="*{description}" placeholder="Enter task details"></textarea>
+			</div>
+
+			<div>
+				<label for="timetocompletetask" class="form-label">Time to Complete (minutes):</label>
+				<input type="number" id="timetocompletetask" th:field="*{timetocompletetask}" min="1" required
+					placeholder="e.g. 30" />
+			</div>
+
+			<div>
+				<button type="submit" class="btn-custom">Create Task</button>
 			</div>
 		</form>
 	</div>
