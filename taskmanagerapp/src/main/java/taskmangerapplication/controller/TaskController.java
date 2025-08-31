@@ -29,30 +29,38 @@ public class TaskController {
 	
 	@GetMapping("/tasks/new")
 	public String addnewTask(Model model) {
-		System.out.println("New task added");
+//		System.out.println("New task added");
 		model.addAttribute("task", new TaskBind());
-		return "task";
+		return "addtask";
 	}
 	
 	
 	@PostMapping("/savetasks")
 	public String saveTask(Model model, TaskBind task, HttpSession session) {
 		
-//		System.out.println("Hey there");
-		String username = (String) session.getAttribute("user");//getting the user from the session
+		String username = (String) session.getAttribute("username");//getting the user from the session
 //		System.out.println(username);
+		
+		if (username == null) {
+            model.addAttribute("msg", "Session expired. Please login again.");
+            return "login"; // redirect to login if no session is there.
+        }
 		
 		UserEntity userentity = userDao.findByName(username);
 		TaskEntity entity = new TaskEntity();
-		entity.setUserEntity(userentity);//setting the tasks for the user entity
+		
+		entity.setUserEntity(userentity);//setting the tasks for the user entity.
+		
+		// copy values from form to entity
 		BeanUtils.copyProperties(task, entity);
 		
-		TaskEntity save = taskDao.save(entity);
-		if (save != null) {
+		TaskEntity saved = taskDao.save(entity);
+		
+		if (saved != null) {
 			model.addAttribute("msg", "task saved");
 			return "home";
 		} else {
-			return "task";
+			return "addtask";
 		}
 	}
 
@@ -60,10 +68,13 @@ public class TaskController {
 	@GetMapping("/viewtasks")
 	public String viewTasks(HttpSession session, Model model) {
 
-		String username = (String) session.getAttribute("user");
+		String username = (String) session.getAttribute("username");
+		
 		UserEntity entity = userDao.findByName(username);
-		List<TaskEntity> taks = taskDao.findByUserEntity(entity);
-		model.addAttribute("tasks", taks);
+		
+		List<TaskEntity> tasks = taskDao.findByUserEntity(entity);
+		
+		model.addAttribute("tasks", tasks);
 		return "viewtask";//triggering the view task web page
 	}
 }
