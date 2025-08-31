@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>To-Do Manager</title>
+	<style>
+		/* Reseting default styles */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			height: 100vh;
+			background: url('https://images.unsplash.com/photo-1508780709619-79562169bc64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+			background-size: cover;
+			font-family: Arial, sans-serif;
+			color: white;
+		}
+
+		/* Navbar */
+		.navbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.6);
+			padding: 15px 40px;
+		}
+
+		.navbar .logo {
+			font-size: 1.5rem;
+			font-weight: bold;
+			color: #ffcc00;
+		}
+
+		.nav-buttons button {
+			margin-left: 15px;
+			padding: 8px 18px;
+			border-radius: 20px;
+			font-weight: bold;
+			background-color: #ffcc00;
+			color: black;
+			border: none;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+
+		.nav-buttons button:hover {
+			background-color: #e6b800;
+			color: white;
+		}
+
+		/* Center message */
+		.welcome-container {
+			height: calc(100vh - 70px);
+			/* full height minus navbar */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+
+		.welcome-container h1 {
+			font-size: 2.8rem;
+			font-weight: bold;
+			text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+		}
+
+		/* Responsive */
+		@media (max-width: 600px) {
+			.navbar {
+				flex-direction: column;
+				padding: 10px;
+			}
+
+			.nav-buttons {
+				margin-top: 10px;
+			}
+
+			.welcome-container h1 {
+				font-size: 3rem;
+				font-weight: bold;
+				background: linear-gradient(90deg, #ffcc00, #ff6600);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Navbar -->
+	<div class="navbar">
+		<div class="logo">📝ToDo Manager</div>
+		<div class="nav-buttons">
+			<form th:action="@{/registerform}" method="get" style="display:inline;">
+				<button type="submit">Register</button>
+			</form>
+			<form th:action="@{/loginform}" method="post" style="display:inline;">
+				<button type="submit">Login</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Welcome Message -->
+	<div class="welcome-container">
+		<h1>To-Do Web Application Manager</h1>
+	</div>
+</body>
+</html>
