@@ -4,14 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Your Tasks</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
 	<style>
 		body {
-			background: linear-gradient(135deg, #43cea2, #185a9d);
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			margin: 0;
 			padding: 0;
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+			background: url('https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=1650&q=80') no-repeat center center fixed;
+			background-size: cover;
 			min-height: 100vh;
 			display: flex;
 			justify-content: center;
@@ -20,7 +19,7 @@
 		}
 
 		.container {
-			background: #fff;
+			background: rgba(255, 255, 255, 0.9);
 			border-radius: 20px;
 			box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
 			padding: 30px;
@@ -31,35 +30,38 @@
 		h2 {
 			text-align: center;
 			font-weight: bold;
-			color: #333;
+			color: #2c3e50;
 			margin-bottom: 25px;
 		}
 
 		.top-links {
 			display: flex;
-			justify-content: space-between;
+			justify-content: flex-end;
 			margin-bottom: 20px;
 		}
 
-		.btn-custom {
-			background: #185a9d;
+		.btn-add-task {
+			background: linear-gradient(135deg, #ff512f, #dd2476);
 			border: none;
-			border-radius: 12px;
+			border-radius: 50px;
 			color: #fff;
 			font-weight: bold;
-			padding: 10px 18px;
+			padding: 12px 24px;
+			cursor: pointer;
+			font-size: 16px;
 			transition: all 0.3s ease-in-out;
-			text-decoration: none;
 		}
 
-		.btn-custom:hover {
-			background: #0f3f6d;
-			transform: scale(1.05);
+		.btn-add-task:hover {
+			background: linear-gradient(135deg, #dd2476, #ff512f);
+			transform: scale(1.08);
+			box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 		}
 
 		ul {
 			list-style: none;
 			padding: 0;
+			margin: 0;
 		}
 
 		li {
@@ -71,32 +73,42 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			transition: transform 0.2s ease;
+		}
+
+		li:hover {
+			transform: translateY(-3px);
+			background: #eef2f3;
 		}
 
 		li span:first-child {
 			font-weight: bold;
 			color: #185a9d;
+			font-size: 18px;
 		}
 
 		li span:last-child {
 			font-style: italic;
 			color: #666;
+			font-size: 15px;
 		}
 	</style>
 </head>
 
 <body>
 	<div class="container">
-		<h2><u> Your Tasks </u></h2>
+		<h2>Your Tasks</h2>
 
 		<div class="top-links">
-			<a th:href="@{/tasks/new}" class="btn-custom">➕ New Task</a>
-			<a th:href="@{/signout}" class="btn-custom">Logout</a>
+			<a th:href="@{/tasks/new}">
+				<button class="btn-add-task">➕ Add New Task</button>
+			</a>
 		</div>
 
 		<ul>
-			<li th:each="t : ${viewtasks}">
+			<li th:each="t : ${tasks}">
 				<span th:text="${t.taskname}">Task Name</span>
+				<span th:text="${t.description}">Description</span>
 				<span th:text="${t.timetocompletetask} + ' mins'">Time</span>
 			</li>
 		</ul>
