@@ -16,14 +16,14 @@ import taskmangerapplication.model.UserEntity;
 public class UserController {
 
 	@Autowired
-	private UserDao userDao;//to perform user entity related operations.
+	private UserDao userDao;// to perform user entity related operations.
 
-	
-	@GetMapping("/showform")
+	@GetMapping("/registerform")
 	public String showregisterForm(Model model) {
 		model.addAttribute("user", new UserBind());
 		return "register";
 	}
+	
 
 	@PostMapping("/saveuser")
 	public String registerUser(UserBind user, Model model) {
@@ -31,6 +31,7 @@ public class UserController {
 		UserEntity entity = new UserEntity();
 		BeanUtils.copyProperties(user, entity);
 		UserEntity save = userDao.save(entity);
+		
 		if (save != null) {
 			System.out.println("Data saved!!! but login not triggerred!!!");
 			model.addAttribute("user", new LoginUser());
@@ -41,18 +42,21 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/loginform")
 	public String loginUser(LoginUser user, Model model, HttpSession session) {
 		String username = user.getUsername();
 		String pswd = user.getPassword();
 
 		// lookup user from DB using our existing custom method
-		UserEntity found = userDao.findByName(username);
+		UserEntity existingUser = userDao.findByName(username);
 
-		if (found != null && pswd.equals(found.getPswd())) {
-			session.setAttribute("user", username);//adding the user in the session for further operation
-			session.setAttribute("pswd", pswd);
-			return "home";
+		if (existingUser != null && pswd.equals(existingUser.getPswd())) {
+			// Store user data in session
+			session.setAttribute("username", username);// adding the user in the session for further operation
+			session.setAttribute("password", pswd);
+
+			// Redirect to dashboard
+			return "redirect:/dashboard";
 		} else {
 			model.addAttribute("user", new LoginUser());
 			model.addAttribute("msg", "LOGIN FAILED!!!!!");
@@ -60,10 +64,26 @@ public class UserController {
 		}
 	}
 	
+	
+
+	@GetMapping("/dashboard")
+	public String dashboard(HttpSession session, Model model) {
+		String username = (String) session.getAttribute("username");
+
+		if (username == null) {
+			return "redirect:/loginform"; // if not logged in, redirect to login
+		}
+
+		model.addAttribute("username", username);
+		return "home"; // dashboard.html page
+	}
+	
+	
+
 	@GetMapping("/signout")
 	public String logout(HttpSession session, Model model) {
-		
-		session.invalidate();//deleting the sesion
+
+		session.invalidate();// deleting the session or clearing session
 		model.addAttribute("msg", "Logout successfull!!!");
 		model.addAttribute("user", new LoginUser());
 		return "login";
