@@ -9,5 +9,5 @@ import taskmangerapplication.model.UserEntity;
 public interface UserDao extends JpaRepository<UserEntity, Long> {
 	
 	//custom method to find a user by name
-	UserEntity findByName(String username);
+	UserEntity findUserByName(String username);
 }

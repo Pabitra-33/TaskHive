@@ -46,7 +46,7 @@ public class TaskController {
             return "login"; // redirect to login if no session is there.
         }
 		
-		UserEntity userentity = userDao.findByName(username);
+		UserEntity userentity = userDao.findUserByName(username);
 		TaskEntity entity = new TaskEntity();
 		
 		entity.setUserEntity(userentity);//setting the tasks for the user entity.
@@ -70,7 +70,7 @@ public class TaskController {
 
 		String username = (String) session.getAttribute("username");
 		
-		UserEntity entity = userDao.findByName(username);
+		UserEntity entity = userDao.findUserByName(username);
 		
 		List<TaskEntity> tasks = taskDao.findByUserEntity(entity);
 		

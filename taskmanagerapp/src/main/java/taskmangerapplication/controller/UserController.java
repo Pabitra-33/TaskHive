@@ -48,7 +48,7 @@ public class UserController {
 		String pswd = user.getPassword();
 
 		// lookup user from DB using our existing custom method
-		UserEntity existingUser = userDao.findByName(username);
+		UserEntity existingUser = userDao.findUserByName(username);
 
 		if (existingUser != null && pswd.equals(existingUser.getPswd())) {
 			// Store user data in session
