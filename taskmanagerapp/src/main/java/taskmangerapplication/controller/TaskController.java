@@ -51,7 +51,7 @@ public class TaskController {
 		
 		entity.setUserEntity(userentity);//setting the tasks for the user entity.
 		
-		// copy values from form to entity
+		// copying form values from binding and then to entity
 		BeanUtils.copyProperties(task, entity);
 		
 		TaskEntity saved = taskDao.save(entity);
