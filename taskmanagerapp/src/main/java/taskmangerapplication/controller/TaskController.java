@@ -52,7 +52,7 @@ public class TaskController {
 		entity.setUserEntity(userentity);//setting the tasks for the user entity.
 		
 		// copying form values from binding and then to entity
-		BeanUtils.copyProperties(task, entity);
+		BeanUtils.copyProperties(task, entity, "id");
 		
 		TaskEntity saved = taskDao.save(entity);
 		
@@ -60,6 +60,7 @@ public class TaskController {
 			model.addAttribute("msg", "task saved");
 			return "home";
 		} else {
+			 model.addAttribute("msg", "Failed to save task. Try again.");
 			return "addtask";
 		}
 	}

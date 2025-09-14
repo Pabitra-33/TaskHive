@@ -89,10 +89,6 @@
 
 		<form th:action="@{/savetasks}" th:object="${task}" method="post">
 			<div>
-				<label for="taskid" class="form-label">Task Id:</label>
-				<input type="text" id="taskname" th:field="*{id}" required placeholder="Enter task id" />
-			</div>
-			<div>
 				<label for="taskname" class="form-label">Task Name:</label>
 				<input type="text" id="taskname" th:field="*{taskname}" required placeholder="Enter task title" />
 			</div>

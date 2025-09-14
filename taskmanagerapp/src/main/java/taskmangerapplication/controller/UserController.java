@@ -18,6 +18,7 @@ public class UserController {
 	@Autowired
 	private UserDao userDao;// to perform user entity related operations.
 
+	
 	@GetMapping("/registerform")
 	public String showregisterForm(Model model) {
 		model.addAttribute("user", new UserBind());
@@ -27,7 +28,6 @@ public class UserController {
 
 	@PostMapping("/saveuser")
 	public String registerUser(UserBind user, Model model) {
-
 		UserEntity entity = new UserEntity();
 		BeanUtils.copyProperties(user, entity);
 		UserEntity save = userDao.save(entity);
@@ -41,6 +41,7 @@ public class UserController {
 			return "register";
 		}
 	}
+	
 
 	@PostMapping("/loginform")
 	public String loginUser(LoginUser user, Model model, HttpSession session) {
@@ -73,7 +74,7 @@ public class UserController {
 		if (username == null) {
 			return "redirect:/loginform"; // if not logged in, redirect to login
 		}
-
+		
 		model.addAttribute("username", username);
 		return "home"; // dashboard.html page
 	}
@@ -82,7 +83,6 @@ public class UserController {
 
 	@GetMapping("/signout")
 	public String logout(HttpSession session, Model model) {
-
 		session.invalidate();// deleting the session or clearing session
 		model.addAttribute("msg", "Logout successfull!!!");
 		model.addAttribute("user", new LoginUser());
