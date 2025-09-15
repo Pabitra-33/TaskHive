@@ -25,7 +25,7 @@ public class UserController {
 		return "register";
 	}
 	
-
+	
 	@PostMapping("/saveuser")
 	public String registerUser(UserBind user, Model model) {
 		UserEntity entity = new UserEntity();
@@ -56,7 +56,7 @@ public class UserController {
 			session.setAttribute("username", username);// adding the user in the session for further operation
 			session.setAttribute("password", pswd);
 
-			// Redirect to dashboard
+			// Redirect to dashboard after successful login
 			return "redirect:/dashboard";
 		} else {
 			model.addAttribute("user", new LoginUser());
