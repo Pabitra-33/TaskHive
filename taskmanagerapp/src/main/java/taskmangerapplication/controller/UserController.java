@@ -33,7 +33,7 @@ public class UserController {
 		UserEntity save = userDao.save(entity);
 		
 		if (save != null) {
-			System.out.println("Data saved!!! but login not triggerred!!!");
+			// System.out.println("Data saved!!! but login not triggered!!!");
 			model.addAttribute("user", new LoginUser());
 			return "login";
 		} else {
