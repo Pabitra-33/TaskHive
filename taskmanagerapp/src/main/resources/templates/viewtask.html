@@ -107,11 +107,30 @@
 
 		<ul>
 			<li th:each="t : ${tasks}">
-				<span th:text="${t.taskname}">Task Name</span>
-				<span th:text="${t.description}">Description</span>
-				<span th:text="${t.timetocompletetask} + ' mins'">Time</span>
+				<div>
+					<span th:text="${t.taskname}">Task Name</span>
+					<span th:text="${t.description}">Description</span>
+					<span th:text="${t.timetocompletetask} + ' mins'">Time</span>
+				</div>
+
+				<div style="display:flex;gap:8px;">
+					<a th:href="@{'/edittask/' + ${t.id}}">
+						<button
+							style="background:#f39c12;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;">
+							✏️ Edit
+						</button>
+					</a>
+					<a th:href="@{'/deletetask/' + ${t.id}}"
+						onclick="return confirm('Are you sure you want to delete this task?');">
+						<button
+							style="background:#e74c3c;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;">
+							🗑️ Delete
+						</button>
+					</a>
+				</div>
 			</li>
 		</ul>
 	</div>
 </body>
+
 </html>
